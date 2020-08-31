@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crudify", "Crudify\Crudify.csproj", "{961595D9-33F1-4F6F-A653-720C4351BC52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crudify.TestHost", "Crudify.TestHost\Crudify.TestHost.csproj", "{58FF49EC-903C-42A8-B67B-5935D5FE142B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{961595D9-33F1-4F6F-A653-720C4351BC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961595D9-33F1-4F6F-A653-720C4351BC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961595D9-33F1-4F6F-A653-720C4351BC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961595D9-33F1-4F6F-A653-720C4351BC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58FF49EC-903C-42A8-B67B-5935D5FE142B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FF49EC-903C-42A8-B67B-5935D5FE142B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FF49EC-903C-42A8-B67B-5935D5FE142B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58FF49EC-903C-42A8-B67B-5935D5FE142B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E42222CB-D3C0-471D-A95B-DD2BA3494246}
+	EndGlobalSection
+EndGlobal

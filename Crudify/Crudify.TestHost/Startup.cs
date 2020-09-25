@@ -1,5 +1,6 @@
 using AutoMapper;
 using Crudify.TestHost.Database;
+using Crudify.TestHost.Database.Repositories;
 using Crudify.TestHost.Dtos;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +37,7 @@ namespace Crudify.TestHost
 
             services.AddCrud<TestDbContext>(options =>
             {
-                options.Add<BlogDto, Blog>("/blogs");
+                options.Add<BlogDto, Blog>("/blogs", repository: typeof(BlogRepository));
                 options.Add<PostDto, Post>("/posts");
             });
         }

@@ -1,10 +1,9 @@
-﻿using Crudify.Internals;
+﻿using Crudify.Abstractions;
+using Crudify.Internals;
 using Crudify.Modelling;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 
 namespace Crudify
 {
@@ -16,6 +15,16 @@ namespace Crudify
             var builder = new CrudOptionsBuilder();
             options(builder);
             var crudModels = builder.Build();
+
+            foreach (var model in crudModels)
+            {
+                var repository = model.Repository ?? typeof(GenericRepository<,>).MakeGenericType(model.EntityType, typeof(TDbContext));
+
+                serviceCollection
+                    .AddScoped(
+                        typeof(IRepository<>).MakeGenericType(model.EntityType),
+                        repository);
+            }
 
             serviceCollection
                 .AddMvcCore(setup

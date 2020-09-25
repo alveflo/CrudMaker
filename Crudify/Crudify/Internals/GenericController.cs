@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Crudify.Abstractions;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +14,13 @@ namespace Crudify.Internals
         where TEntity : class, IIdentity
         where TDbContext : DbContext
     {
-        private readonly TDbContext _dbContext;
+        private readonly IRepository<TEntity> _repository;
         private readonly IMapper _mapper;
         private readonly IValidator<TDto> _validator;
 
-        public GenericController(TDbContext dbContext, IMapper mapper, IValidator<TDto> validator)
+        public GenericController(IRepository<TEntity> repository, IMapper mapper, IValidator<TDto> validator)
         {
-            _dbContext = dbContext;
+            _repository = repository;
             _mapper = mapper;
             _validator = validator;
         }
@@ -27,7 +28,7 @@ namespace Crudify.Internals
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(DbContextAccessor.GetDbSet<TEntity, TDbContext>(_dbContext).ToList());
+            return Ok();
         }
 
         [HttpPost]
@@ -37,11 +38,9 @@ namespace Crudify.Internals
             if (result != null)
                 return BadRequest(result);
 
-            var mapped = _mapper.Map<TEntity>(dto);
-            var dbSet = DbContextAccessor.GetDbSet<TEntity, TDbContext>(_dbContext);
+            var entity = _mapper.Map<TEntity>(dto);
 
-            dbSet.Add(mapped);
-            await _dbContext.SaveChangesAsync();
+            await _repository.AddAsync(entity);
             return Ok();
         }
 

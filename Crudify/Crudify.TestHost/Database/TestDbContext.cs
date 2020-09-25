@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Crudify.TestHost.Database
@@ -14,21 +15,21 @@ namespace Crudify.TestHost.Database
         }
     }
 
-    public class Blog
+    public class Blog : IIdentity
     {
-        public int BlogId { get; set; }
+        public Guid Id { get; set; }
         public string Url { get; set; }
         public int Rating { get; set; }
         public List<Post> Posts { get; set; }
     }
 
-    public class Post
+    public class Post : IIdentity
     {
-        public int PostId { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public int BlogId { get; set; }
+        public Guid BlogId { get; set; }
         public Blog Blog { get; set; }
     }
 }

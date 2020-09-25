@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Crudify.Internals
 {
-    internal class GenericTypeControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
+    internal class GenericTypeControllerFeatureProvider<TDbContext> : IApplicationFeatureProvider<ControllerFeature>
+        where TDbContext : DbContext
     {
         private readonly List<CrudModel> _models;
 
@@ -18,7 +20,7 @@ namespace Crudify.Internals
         {
             foreach (var model in _models)
             {
-                var controller = typeof(GenericController<,>).MakeGenericType(model.DtoType, model.EntityType);
+                var controller = typeof(GenericController<,,>).MakeGenericType(model.DtoType, model.EntityType, typeof(TDbContext));
 
                 feature.Controllers.Add(
                     controller.GetTypeInfo()

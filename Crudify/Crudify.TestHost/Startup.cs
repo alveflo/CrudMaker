@@ -1,5 +1,7 @@
+using AutoMapper;
 using Crudify.TestHost.Database;
 using Crudify.TestHost.Dtos;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,12 +27,14 @@ namespace Crudify.TestHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TestDbContext>();
+            services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddControllers();
-            //services.AddCrud<BlogDto, Blog>("/test");
-            //services.AddCrud<PostDto, Post>("/monkeys");
 
-            services.AddCrud(options =>
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BlogDto>());
+
+            services.AddCrud<TestDbContext>(options =>
             {
                 options.Add<BlogDto, Blog>("/blogs");
                 options.Add<PostDto, Post>("/posts");
@@ -50,8 +54,6 @@ namespace Crudify.TestHost
             app.UseRouting();
 
             app.UseAuthorization();
-
-            //app.AddCrud<BlogDto, Blog, TestDbContext>("/test");
 
             app.UseEndpoints(endpoints =>
             {

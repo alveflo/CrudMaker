@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Crudify
+namespace Crudify.Internals
 {
-    public class ApplicationBuilderExtensions
+    internal static class DbContextAccessor
     {
-        internal DbSet<TEntity> GetDbSet<TEntity, TDbContext>(TDbContext ctx)
+        internal static DbSet<TEntity> GetDbSet<TEntity, TDbContext>(TDbContext ctx)
             where TDbContext : DbContext
-            where TEntity : class
+            where TEntity : class, IIdentity
         {
             var properties = ctx.GetType().GetProperties();
             var test = properties.SingleOrDefault(x =>

@@ -13,8 +13,8 @@ namespace Crudify.Modelling
         }
 
         public CrudOptionsBuilder Add<TDto, TEntity>(string path)
-            where TDto : class
-            where TEntity : class
+            where TDto : class, IIdentity
+            where TEntity : class, IIdentity
         {
             _crudModels.Add(new CrudModel
             {

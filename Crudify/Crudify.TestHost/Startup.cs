@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Crudify.TestHost.Database;
+using Crudify.TestHost.Dtos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Crudify.TestHost
 {
@@ -33,12 +26,15 @@ namespace Crudify.TestHost
         {
             services.AddDbContext<TestDbContext>();
 
-            services.AddScoped(sp => new Class1
-            {
-                Hello = "Delfiner kan inte flyga"
-            });
-
             services.AddControllers();
+            //services.AddCrud<BlogDto, Blog>("/test");
+            //services.AddCrud<PostDto, Post>("/monkeys");
+
+            services.AddCrud(options =>
+            {
+                options.Add<BlogDto, Blog>("/blogs");
+                options.Add<PostDto, Post>("/posts");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,8 +51,7 @@ namespace Crudify.TestHost
 
             app.UseAuthorization();
 
-            app.AddCrud<Blog, TestDbContext>("/test");
-            // .Post<BlogDto>()
+            //app.AddCrud<BlogDto, Blog, TestDbContext>("/test");
 
             app.UseEndpoints(endpoints =>
             {

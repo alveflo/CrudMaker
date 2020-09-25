@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Linq;
 
 namespace Crudify
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder AddCrud<TEntity, TDbContext>(this IApplicationBuilder applicationBuilder, string path)
+        public static IApplicationBuilder AddCrud<TDto, TEntity, TDbContext>(this IApplicationBuilder applicationBuilder, string path)
             where TDbContext : DbContext
             where TEntity : class
         {
             applicationBuilder.Map(new PathString(path), ab =>
             {
-
                 ab.Run(async (ctx) =>
                 {
                     var x = ctx.RequestServices.GetRequiredService<TDbContext>();
@@ -24,7 +21,15 @@ namespace Crudify
 
                     var method = ctx.Request.Method;
 
-                    await ctx.Response.WriteAsync("Map Test Successful");
+                    switch (method)
+                    {
+                        case "POST":
+                            await ctx.Response.WriteAsync("Map Post Successful");
+                            break;
+                        case "GET":
+                            await ctx.Response.WriteAsync("Map Get Successful");
+                            break;
+                    }
                 });
             });
 

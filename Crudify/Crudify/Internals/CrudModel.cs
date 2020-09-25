@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Crudify.Internals
 {
-    public class CrudModel
+    internal class CrudModel
     {
+        public string Path { get; set; }
+        public Type DtoType { get; set; }
+        public Type EntityType { get; set; }
     }
 }

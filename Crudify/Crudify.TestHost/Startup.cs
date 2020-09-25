@@ -55,7 +55,8 @@ namespace Crudify.TestHost
 
             app.UseAuthorization();
 
-            app.AddCrud<TestDto, Blog, TestDbContext>("/test");
+            app.AddCrud<Blog, TestDbContext>("/test");
+            // .Post<BlogDto>()
 
             app.UseEndpoints(endpoints =>
             {

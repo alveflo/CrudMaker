@@ -10,7 +10,7 @@ namespace Crudify
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder AddCrud<TDto, TEntity, TDbContext>(this IApplicationBuilder applicationBuilder, string path)
+        public static IApplicationBuilder AddCrud<TEntity, TDbContext>(this IApplicationBuilder applicationBuilder, string path)
             where TDbContext : DbContext
             where TEntity : class
         {
@@ -21,8 +21,6 @@ namespace Crudify
                 {
                     var x = ctx.RequestServices.GetRequiredService<TDbContext>();
                     var y = GetDbSet<TEntity, TDbContext>(x);
-
-
 
                     var method = ctx.Request.Method;
 

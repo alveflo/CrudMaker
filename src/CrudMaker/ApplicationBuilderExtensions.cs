@@ -5,7 +5,7 @@ namespace CrudMaker
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseAutoCrudOData(this IApplicationBuilder applicationBuilder)
+        public static IApplicationBuilder UseCrudMakerOData(this IApplicationBuilder applicationBuilder)
         {
             applicationBuilder.UseMvc(routeBuilder =>
             {

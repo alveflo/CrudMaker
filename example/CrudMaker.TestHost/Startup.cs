@@ -24,9 +24,9 @@ namespace CrudMaker.TestHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<TestDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("TestDatabase"))
-            //);
+            services.AddDbContext<TestDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TestDatabase"))
+            );
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddControllers();
@@ -53,7 +53,7 @@ namespace CrudMaker.TestHost
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseAutoCrudOData();
+            app.UseCrudMakerOData();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

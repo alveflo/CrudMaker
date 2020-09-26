@@ -1,6 +1,7 @@
 ﻿using Crudify.Abstractions;
 using Crudify.Internals;
 using Crudify.Modelling;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -31,6 +32,8 @@ namespace Crudify
                     => setup.Conventions.Add(new GenericControllerRouteConvention(crudModels)))
                 .ConfigureApplicationPartManager(manager
                     => manager.FeatureProviders.Add(new GenericTypeControllerFeatureProvider<TDbContext>(crudModels)));
+
+            serviceCollection.AddOData();
 
             return serviceCollection;
         }

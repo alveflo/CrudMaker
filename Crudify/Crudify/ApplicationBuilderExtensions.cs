@@ -1,25 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
+﻿using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNetCore.Builder;
 
 namespace Crudify
 {
-    public class ApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
-        internal DbSet<TEntity> GetDbSet<TEntity, TDbContext>(TDbContext ctx)
-            where TDbContext : DbContext
-            where TEntity : class
+        public static IApplicationBuilder UseAutoCrudOData(this IApplicationBuilder applicationBuilder)
         {
-            var properties = ctx.GetType().GetProperties();
-            var test = properties.SingleOrDefault(x =>
-                x.PropertyType.IsGenericType &&
-                x.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
-                x.PropertyType.GenericTypeArguments[0] == typeof(TEntity));
+            applicationBuilder.UseMvc(routeBuilder =>
+            {
+                routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
 
-            var x = (DbSet<TEntity>)test.GetValue(ctx);
-            return x;
+                // The following line to Work-around for #1175 in beta1
+                routeBuilder.EnableDependencyInjection();
+            });
+
+            return applicationBuilder;
         }
     }
 }

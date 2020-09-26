@@ -22,9 +22,7 @@ namespace Crudify.Internals
             {
                 var controller = typeof(GenericController<,,>).MakeGenericType(model.DtoType, model.EntityType, typeof(TDbContext));
 
-                feature.Controllers.Add(
-                    controller.GetTypeInfo()
-                );
+                feature.Controllers.Add(controller.GetTypeInfo());
             }
         }
     }

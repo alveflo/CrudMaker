@@ -1,6 +1,7 @@
 ﻿using Crudify.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +37,11 @@ namespace Crudify.Internals
         public async Task<TEntity> GetAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public IQueryable<TEntity> GetQueryable()
+        {
+            return _dbSet.AsQueryable();
         }
 
         public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)

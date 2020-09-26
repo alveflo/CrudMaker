@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Crudify.Abstractions;
 using FluentValidation;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -26,9 +27,10 @@ namespace Crudify.Internals
         }
 
         [HttpGet]
-        public IActionResult Get()
+        [EnableQuery]
+        public IQueryable<TEntity> Get()
         {
-            return Ok();
+            return _repository.GetQueryable();
         }
 
         [HttpPost]

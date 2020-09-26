@@ -1,6 +1,5 @@
 <p align="center">
-<h2 align="center">:rocket:</h1>
-<h2 align="center">CrudMaker</h1>
+<h1 align="center">:rocket: CrudMaker</h1>
 </p>
 
 ## Description
@@ -14,6 +13,15 @@ This project is tightly coupled to
 * [AutoMapper](https://automapper.org/)
 * [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
 * [FluentValidation aspnet core](https://docs.fluentvalidation.net/en/latest/aspnet.html)
+
+### How about...
+> Can I use my own controllers alongside this library?
+
+Yes, you can! If you'd like to use CrudMaker to generate crud operations for e.g. a `Blog` entity and also write your own controller for a `Post` entity with more complex business logic into it, that's totally fine.
+
+> CrudMaker doesn't include relations when getting data
+
+That's easily fixed by implementing a custom repository (shown below)
 
 # Usage
 When setting up a CRUD-operation (as below) with CrudMaker you'll get the following endpoints:
@@ -92,6 +100,18 @@ public class BlogDto : IIdentity
     public Guid Id { get; set; }
     ...
 }
+```
+
+## Custom repositories
+Custom repositories is implemented by implementing the interface `CrudMaker.Abstractions.IRepository<TEntity>` and configured when configuring your service collection
+```csharp
+```
+
+```csharp
+services.AddCrud<TestDbContext>(options =>
+{
+    options.Add<BlogDto, Blog, BlogRepository>("/blogs");
+});
 ```
 
 ## Validation

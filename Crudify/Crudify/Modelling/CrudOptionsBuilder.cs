@@ -1,5 +1,5 @@
-﻿using Crudify.Internals;
-using System;
+﻿using Crudify.Abstractions;
+using Crudify.Internals;
 using System.Collections.Generic;
 
 namespace Crudify.Modelling
@@ -13,7 +13,23 @@ namespace Crudify.Modelling
             _crudModels = new List<CrudModel>();
         }
 
-        public CrudOptionsBuilder Add<TDto, TEntity>(string path, Type repository = null)
+        public CrudOptionsBuilder Add<TDto, TEntity, TRepository>(string path)
+            where TDto : class, IIdentity
+            where TEntity : class, IIdentity
+            where TRepository : IRepository<TEntity>
+        {
+            _crudModels.Add(new CrudModel
+            {
+                Path = path,
+                DtoType = typeof(TDto),
+                EntityType = typeof(TEntity),
+                Repository = typeof(TRepository)
+            });
+
+            return this;
+        }
+
+        public CrudOptionsBuilder Add<TDto, TEntity>(string path)
             where TDto : class, IIdentity
             where TEntity : class, IIdentity
         {
@@ -21,8 +37,7 @@ namespace Crudify.Modelling
             {
                 Path = path,
                 DtoType = typeof(TDto),
-                EntityType = typeof(TEntity),
-                Repository = repository
+                EntityType = typeof(TEntity)
             });
 
             return this;

@@ -6,13 +6,11 @@ namespace Crudify.TestHost.Database
 {
     public class TestDbContext : DbContext
     {
+        public TestDbContext(DbContextOptions<TestDbContext> options)
+            : base(options) { }
+
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "TestDatabase");
-        }
     }
 
     public class Blog : IIdentity

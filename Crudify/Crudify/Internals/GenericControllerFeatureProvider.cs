@@ -21,10 +21,10 @@ namespace Crudify.Internals
             foreach (var model in _models)
             {
                 var controller = typeof(GenericController<,,>).MakeGenericType(model.DtoType, model.EntityType, typeof(TDbContext));
+                var odataController = typeof(GenericODataController<,>).MakeGenericType(model.EntityType, typeof(TDbContext));
 
-                feature.Controllers.Add(
-                    controller.GetTypeInfo()
-                );
+                feature.Controllers.Add(controller.GetTypeInfo());
+                feature.Controllers.Add(odataController.GetTypeInfo());
             }
         }
     }

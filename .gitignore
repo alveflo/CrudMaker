@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 
 appsettings.Development.json
+Crudify/Crudify.TestHost/appsettings.Development.json

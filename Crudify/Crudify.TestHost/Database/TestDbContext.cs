@@ -28,6 +28,5 @@ namespace Crudify.TestHost.Database
         public string Content { get; set; }
 
         public Guid BlogId { get; set; }
-        public Blog Blog { get; set; }
     }
 }

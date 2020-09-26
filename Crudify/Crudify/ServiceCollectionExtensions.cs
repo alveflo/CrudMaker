@@ -34,7 +34,6 @@ namespace Crudify
                     => manager.FeatureProviders.Add(new GenericTypeControllerFeatureProvider<TDbContext>(crudModels)));
 
             serviceCollection.AddOData();
-            serviceCollection.AddSingleton(new EdmModelBuilder(crudModels).Build());
 
             return serviceCollection;
         }

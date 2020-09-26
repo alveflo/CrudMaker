@@ -18,29 +18,19 @@ namespace Crudify.Internals
         private readonly IRepository<TEntity> _repository;
         private readonly IMapper _mapper;
         private readonly IValidator<TDto> _validator;
-        private readonly TDbContext _context;
 
-        public GenericController(IRepository<TEntity> repository, IMapper mapper, IValidator<TDto> validator, TDbContext dbContext)
+        public GenericController(IRepository<TEntity> repository, IMapper mapper, IValidator<TDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
             _validator = validator;
-            _context = dbContext;
         }
-
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    return Ok();
-        //}
 
         [HttpGet]
         [EnableQuery]
-        public DbSet<TEntity> Get()
+        public IQueryable<TEntity> Get()
         {
-            var dbSet = DbContextAccessor.GetDbSet<TEntity, TDbContext>(_context);
-
-            return dbSet;
+            return _repository.GetQueryable();
         }
 
         [HttpPost]

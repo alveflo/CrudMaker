@@ -43,7 +43,7 @@ namespace Crudify.TestHost
 
             services.AddCrud<TestDbContext>(options =>
             {
-                //options.Add<BlogDto, Blog, BlogRepository>("/blogs");
+                options.Add<BlogDto, Blog, BlogRepository>("/blogs");
                 options.Add<PostDto, Post>("/posts");
             });
         }

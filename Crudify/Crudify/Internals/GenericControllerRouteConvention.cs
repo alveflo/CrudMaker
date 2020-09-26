@@ -18,29 +18,15 @@ namespace Crudify.Internals
         {
             if (controller.ControllerType.IsGenericType)
             {
-                var dtoType = controller.ControllerType.GenericTypeArguments[0];
-
                 var controllerTypeName = controller.ControllerType.Name;
                 if (controllerTypeName == typeof(GenericController<,,>).Name)
                 {
                     var entityType = controller.ControllerType.GenericTypeArguments[1];
+                    var dtoType = controller.ControllerType.GenericTypeArguments[0];
 
                     var model = _models.First(x
                         => x.DtoType.FullName == dtoType.FullName
                         && x.EntityType.FullName == entityType.FullName);
-
-                    if (model == null)
-                        return;
-
-                    controller.Selectors.Add(new SelectorModel
-                    {
-                        AttributeRouteModel = new AttributeRouteModel(new RouteAttribute(model.Path))
-                    });
-                }
-                else if (controllerTypeName == typeof(GenericODataController<,>).Name)
-                {
-                    var entityType = controller.ControllerType.GenericTypeArguments[0];
-                    var model = _models.First(x => x.EntityType.FullName == entityType.FullName);
 
                     if (model == null)
                         return;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace Crudify.Abstractions
         /// If no entity is found, null is returned.
         /// </summary>
         Task<TEntity> GetAsync(Guid id);
+
+        IQueryable<TEntity> GetQueryable();
 
         /// <summary>
         /// Updates an entity and returns an updated object.

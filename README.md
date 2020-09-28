@@ -78,7 +78,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     ...
     // Add CrudMaker OData support
-    app.UseAutoCrudOData();
+    app.UseCrudMakerOData();
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();

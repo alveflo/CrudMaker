@@ -105,9 +105,6 @@ public class BlogDto : IIdentity
 ## Custom repositories
 Custom repositories is implemented by implementing the interface `CrudMaker.Abstractions.IRepository<TEntity>` and configured when configuring your service collection
 ```csharp
-```
-
-```csharp
 services.AddCrud<TestDbContext>(options =>
 {
     options.Add<BlogDto, Blog, BlogRepository>("/blogs");
